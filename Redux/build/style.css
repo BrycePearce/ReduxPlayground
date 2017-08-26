@@ -1,0 +1,11 @@
+.userBox {
+width: 250px;
+border: 1px solid #3D484C;
+background: #2D3538;
+margin: 0 0 5px;
+padding: 8px;
+border-radius: 5px;
+font-size: 12px;
+padding-right: 30px;
+color: #DDD;  
+}

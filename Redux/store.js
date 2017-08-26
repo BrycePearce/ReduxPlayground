@@ -4,13 +4,12 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
 import rootReducer from './reducers/index';
 
-//user will be an object, so initialize it as such
-let user = {};
-
+//comments will be an object, so initialize it as such. Will contain the comment and the user commenting
+let comments = {};
 //create an object for the default data
 const defaultState = {
-  //es6 lets you just say 'user' where previous you had to initialize with:  user: user
-  user
+  //es6 lets you just say 'user' where previous you had to initialize with:  comments: comments
+  comments
 };
 
 const store = createStore(rootReducer, defaultState);

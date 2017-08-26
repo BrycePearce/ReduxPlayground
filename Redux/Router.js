@@ -11,8 +11,8 @@ render((
   /*Provider will expose our store to the application*/
   <Provider store={store}>
     <BrowserRouter history={history}>
-      <Route path="/" component={Container}>
-      </Route>
+      <Route path="/" component={Container}/>
+      <Route path ="/view/:postId"/>
     </BrowserRouter>
   </Provider>
 
