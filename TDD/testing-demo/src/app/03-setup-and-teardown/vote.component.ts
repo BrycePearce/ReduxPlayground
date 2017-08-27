@@ -1,4 +1,3 @@
-
 export class VoteComponent { 
   totalVotes = 0; 
 
