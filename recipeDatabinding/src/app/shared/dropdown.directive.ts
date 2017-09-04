@@ -17,3 +17,18 @@ export class DropdownDirective {
    }
   constructor(private elRef: ElementRef) { }
 }
+
+/*@HostListener('document:click', ['$event'])
+clickout(event) {
+  if (!this.eRef.nativeElement.contains(event.target)) {
+    console.log(this.eRef.nativeElement);
+    console.log(event.target);
+    console.log("clicked outside");
+  } else {
+    console.log(this.eRef.nativeElement);
+    console.log(event.target);
+    console.log("clicked inside");
+  }
+}
+constructor(private eRef: ElementRef) { }
+}*/
