@@ -1,3 +1,6 @@
+/*
+ * Pure CSS way of doing this: https://codepen.io/anon/pen/oeOvjw
+ */ 
 import { Directive, ElementRef, HostListener, HostBinding } from '@angular/core';
 @Directive({
   selector: '[appDropdown]'
