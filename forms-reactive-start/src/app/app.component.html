@@ -1,28 +1,41 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()"> <!-- signupForm is the form name we created in app.component.ts -->
         <div class="form-group">
           <label for="username">Username</label>
           <input
             type="text"
             id="username"
+            formControlName="username"
             class="form-control">
+            <!-- formControlName="username", username comes from our key:value pair in app.component form.
+                  If you were doing property binding, e.g. not a string, you would do [formControlName]="'username'" -->
+            <span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched"
+                  class="help-block">Please enter a valid username!</span>
         </div>
+        <div formGroupName="userdata"> <!-- this div is just for the nested form test -->          
         <div class="form-group">
           <label for="email">email</label>
           <input
             type="text"
             id="email"
+            formControlName="email"
             class="form-control">
+            <span *ngIf="!signupForm.get('userdata.email').valid && signupForm.get('userdata.email').touched"
+            class="help-block">Please enter a valid email!</span>
         </div>
+      </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>
             <input
               type="radio"
+              formControlName="gender"
               [value]="gender">{{ gender }}
           </label>
         </div>
+        <span *ngIf="!signupForm.valid && signupForm.touched"
+        class="help-block">Please enter valid data!</span>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
