@@ -11,7 +11,7 @@ func main() {
 
 	showPrintVars()
 	convertVar()
-
+	maps()
 }
 
 /*
@@ -51,7 +51,7 @@ func convertVar() {
 	k = string(i)
 	fmt.Printf("%v, %T\n", k, k) // outputs * string, which is the ascii for the number 42 as a string
 
-	// Better to use the standard library to convert variable types, shown below
+	// Better to use the standard library to convert variable types, shown below:
 
 	var n int = 30
 	fmt.Printf("%v, %T\n", n, n)
@@ -59,5 +59,16 @@ func convertVar() {
 	var p string
 	p = strconv.Itoa(n)
 	fmt.Printf("%v, %T\n", p, p)
+}
 
+func maps() {
+	fmt.Println("\nCreating a map")
+
+	statePopulations := map[string]int{ // map is type string, with integer values
+		"California": 129494,
+		"Texas":      27862596,
+		"New York":   19418255910,
+	}
+	fmt.Println(statePopulations)
+	fmt.Println(statePopulations["Texas"])
 }
