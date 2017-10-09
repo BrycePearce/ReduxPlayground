@@ -26,20 +26,20 @@ export class AppComponent implements OnInit {
       'userdata': {
         'email': 'node@test.com'
       },
-        'username': 'Node',
-        'gender':'male',
-        'hobbies': [] // should probably populate hobbies here instead of at array hobby
+      'username': 'Node',
+      'gender': 'male',
+      'hobbies': [] // should probably populate hobbies here instead of at array hobby
     });
-  /*
-    // you can do the following to listen to any changes in the forms/fields
-    this.signupForm.valueChanges.subscribe( // form value changes
-      (value) => console.log(value)
-    );
-
-    this.signupForm.statusChanges.subscribe( // form status changes
-      (status) => console.log(status)
-    );
-  */
+    /*
+      // you can do the following to listen to any changes in the forms/fields
+      this.signupForm.valueChanges.subscribe( // form value changes
+        (value) => console.log(value)
+      );
+  
+      this.signupForm.statusChanges.subscribe( // form status changes
+        (status) => console.log(status)
+      );
+    */
 
   }
 

@@ -7,7 +7,7 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 @Injectable()
 export class RecipeService {
 
-  private recipes: Recipe[] = [
+  private recipes: Recipe[] = [ // hardcoded recipe, use DB for better practice later on
     new Recipe(
       'Tasty Schnitzel',
       'A super-tasty Schnitzel - just awesome!',
@@ -31,7 +31,7 @@ export class RecipeService {
     return this.recipes.slice();
   }
 
-  getRecipe(index: number) {
+  getRecipe(index: number) { // returns the recipe of the number passed to it
     return this.recipes[index];
   }
 
