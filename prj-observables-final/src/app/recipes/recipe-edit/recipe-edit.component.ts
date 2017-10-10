@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { RecipeService } from 'app/recipes/recipe.service';
 
 @Component({
@@ -33,19 +33,32 @@ export class RecipeEditComponent implements OnInit {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
-
+    const recipeIngredients = new FormArray([]); // no ingredients by default, so initialize it as an empty array
     // if the user is editing an existing recipe, we need to populate the fields with the current ingredients
     if (this.editMode) {
       const recipe = this.recipeService.getRecipe(this.id); // pull in hardcoded recipe from service
       recipeName = recipe.name;
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
-    }
 
-    this.recipeForm = new FormGroup({ // we bind recipeForm to our form in HTML, tells Angular to use our custom form, not the default one
-      'name': new FormControl(recipeName), // we also set these values in our html via formControlName
+      // set values for selected recipe, if that recipe has ingredients
+      if (recipe['ingredients']) { // ingredients here comes from the model
+        for (const ingredient of recipe.ingredients) {
+          recipeIngredients.push(
+            new FormGroup({
+              'name': new FormControl(ingredient.name),
+              'amount': new FormControl(ingredient.amount)
+            })
+          );
+        }
+      }
+    }
+    // we bind recipeForm to our form in HTML, tells Angular to use our custom form, not the default one
+    this.recipeForm = new FormGroup({
+      'name': new FormControl(recipeName), // we also set these values in our html via formControlName or formArrayName
       'imagePath': new FormControl(recipeImagePath),
-      'description': new FormControl(recipeDescription) // this we pre-populate the fields with the current recipe
+      'description': new FormControl(recipeDescription), // with this we pre-populate the fields with the current recipe
+      'ingredients': recipeIngredients
     });
   }
 
