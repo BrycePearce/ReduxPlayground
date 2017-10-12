@@ -1,0 +1,12 @@
+/* neato built in angular class that catches any invalid inputs
+.ng-invalid {
+  This would cause the whole form to have a 1px red border when invalid
+}
+*/
+
+/*input.ng-invalid{} would cause all input areas to have 1px red borders on invalidation*/
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched { /* handles all invalid cases that we have, while excluding the form itself from having a red box*/
+  border: 1px solid red;
+}
+/*ng-touched makes it to where there are no red boxes by default, has to have been emptied by a user*/

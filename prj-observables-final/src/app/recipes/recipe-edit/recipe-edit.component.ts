@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from 'app/recipes/recipe.service';
 
 @Component({
@@ -31,10 +31,13 @@ export class RecipeEditComponent implements OnInit {
 
   // add ingredients while editing the recipe
   onAddIngredient() {
-    (<FormArray>this.recipeForm.get('ingredients')).push( 
+    (<FormArray>this.recipeForm.get('ingredients')).push(
       new FormGroup({
-        'name': new FormControl(),
-        'amount': new FormControl()
+        'name': new FormControl(null, Validators.required),
+        'amount': new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[1-9+[0-9]*$/) // even positive numbers regex
+        ])
       })
     );
   }
@@ -51,13 +54,16 @@ export class RecipeEditComponent implements OnInit {
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
 
-      // set values for selected recipe, if that recipe has ingredients
+      // push values for selected recipe, if that recipe has ingredients
       if (recipe['ingredients']) { // ingredients here comes from the model
         for (const ingredient of recipe.ingredients) {
           recipeIngredients.push(
             new FormGroup({
-              'name': new FormControl(ingredient.name),
-              'amount': new FormControl(ingredient.amount)
+              'name': new FormControl(ingredient.name, Validators.required),
+              'amount': new FormControl(ingredient.amount,
+                [Validators.required,
+                Validators.pattern(/^[1-9+[0-9]*$/) // even numbers regex
+                ])
             })
           );
         }
@@ -65,9 +71,9 @@ export class RecipeEditComponent implements OnInit {
     }
     // we bind recipeForm to our form in HTML, tells Angular to use our custom form, not the default one
     this.recipeForm = new FormGroup({
-      'name': new FormControl(recipeName), // we also set these values in our html via formControlName or formArrayName
-      'imagePath': new FormControl(recipeImagePath),
-      'description': new FormControl(recipeDescription), // with this we pre-populate the fields with the current recipe
+      'name': new FormControl(recipeName, Validators.required), // we also set these values in our html via formControlName or formArrayName
+      'imagePath': new FormControl(recipeImagePath, Validators.required),
+      'description': new FormControl(recipeDescription, Validators.required), // with this we pre-populate the fields with the current recipe
       'ingredients': recipeIngredients
     });
   }
