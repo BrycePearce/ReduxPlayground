@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
@@ -6,6 +7,7 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable()
 export class RecipeService {
+  recipesChanges = new Subject<Recipe[]>(); // a special observable that multicastsa value or event to multiple Observers. We are using this here to
 
   private recipes: Recipe[] = [ // hardcoded recipe, use DB for better practice later on
     new Recipe(
@@ -25,7 +27,7 @@ export class RecipeService {
       ])
   ];
 
-  constructor(private slService: ShoppingListService) {}
+  constructor(private slService: ShoppingListService) { }
 
   getRecipes() {
     return this.recipes.slice();
@@ -37,5 +39,18 @@ export class RecipeService {
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.slService.addIngredients(ingredients);
+  }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe); // pushing the new recipe onto to our recipes array propery defined above
+    this.recipesChanges.next(this.recipes.slice());
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe; // take the recipe at the index, and set it equal to the new (edited) recipe
+    console.log('recipes: ', this.recipes);
+    this.recipesChanges.next(this.recipes.slice());
+    console.log('slice: ', this.recipes.slice()); // doesn't transform anything, just for consistentcy
+    
   }
 }
