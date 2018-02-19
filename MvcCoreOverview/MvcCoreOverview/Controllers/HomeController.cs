@@ -27,6 +27,21 @@ namespace MvcCoreOverview.Controllers {
         public IActionResult AnotherView() {
             return View("SomeView");
         }
+        // passing a value to the view (not the best practice way)
+        public IActionResult ViewWithParameter() {
+            string someString = "I am a string";
+            return View("ViewWithParameter", someString);
+        }
+        // passing a value to the view, with ViewBag, TempData, and ViewData(still not best practice, but better. Best practice is to use ViewModel)
+        public IActionResult PassingData() {
+            // Viewbag allows us to send data to the razor frontend, http://www.tutorialsteacher.com/mvc/viewbag-in-asp.net-mvc
+            ViewBag.fruit = "Apples";
+            ViewData["Color"] = "Red";
+            // Tempdata will survive a redirect
+            TempData["Number"] = 5;
+
+            return View("ViewWithParameter");
+        }
 
         public IActionResult About() {
             ViewData["Message"] = "Your application description page.";
