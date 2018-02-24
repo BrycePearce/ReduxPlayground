@@ -1,0 +1,11 @@
+C:\Users\Bryce\Documents\Playground\Capi\Capi\bin\Debug\netcoreapp2.0\Capi.deps.json
+C:\Users\Bryce\Documents\Playground\Capi\Capi\bin\Debug\netcoreapp2.0\Capi.runtimeconfig.json
+C:\Users\Bryce\Documents\Playground\Capi\Capi\bin\Debug\netcoreapp2.0\Capi.runtimeconfig.dev.json
+C:\Users\Bryce\Documents\Playground\Capi\Capi\bin\Debug\netcoreapp2.0\Capi.dll
+C:\Users\Bryce\Documents\Playground\Capi\Capi\bin\Debug\netcoreapp2.0\Capi.pdb
+C:\Users\Bryce\Documents\Playground\Capi\Capi\obj\Debug\netcoreapp2.0\Capi.csprojResolveAssemblyReference.cache
+C:\Users\Bryce\Documents\Playground\Capi\Capi\obj\Debug\netcoreapp2.0\Capi.csproj.CoreCompileInputs.cache
+C:\Users\Bryce\Documents\Playground\Capi\Capi\obj\Debug\netcoreapp2.0\Capi.AssemblyInfoInputs.cache
+C:\Users\Bryce\Documents\Playground\Capi\Capi\obj\Debug\netcoreapp2.0\Capi.AssemblyInfo.cs
+C:\Users\Bryce\Documents\Playground\Capi\Capi\obj\Debug\netcoreapp2.0\Capi.dll
+C:\Users\Bryce\Documents\Playground\Capi\Capi\obj\Debug\netcoreapp2.0\Capi.pdb
