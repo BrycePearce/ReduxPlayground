@@ -48,5 +48,19 @@ namespace Capi.Controllers
             }
             return View(person);
         }
+
+        // Posting for edit
+        [HttpPost]
+        [ValidateAntiForgeryToken] // CSRF protection token
+        public IActionResult Edit(int? id, Person person) {
+            if (id == null) {
+                return NotFound();
+            }
+            _context.Update(person);
+            _context.SaveChanges();
+
+            TempData["Message"] = "Person edited!";
+            return RedirectToAction("Index");
+        }
     }
 }
