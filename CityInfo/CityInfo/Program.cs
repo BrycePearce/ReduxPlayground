@@ -12,6 +12,7 @@ namespace CityInfo
 {
     public class Program
     {
+        // this is where our webhost is built
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
@@ -19,7 +20,7 @@ namespace CityInfo
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+                .UseStartup<Startup>() // specifies startup type to be used by the webhost
+                .Build(); // builds iwebhost instance
     }
 }

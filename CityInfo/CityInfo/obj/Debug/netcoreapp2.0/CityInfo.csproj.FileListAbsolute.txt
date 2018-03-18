@@ -1,0 +1,11 @@
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\bin\Debug\netcoreapp2.0\CityInfo.deps.json
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\bin\Debug\netcoreapp2.0\CityInfo.runtimeconfig.json
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\bin\Debug\netcoreapp2.0\CityInfo.runtimeconfig.dev.json
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\bin\Debug\netcoreapp2.0\CityInfo.dll
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\bin\Debug\netcoreapp2.0\CityInfo.pdb
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\obj\Debug\netcoreapp2.0\CityInfo.csprojResolveAssemblyReference.cache
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\obj\Debug\netcoreapp2.0\CityInfo.csproj.CoreCompileInputs.cache
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\obj\Debug\netcoreapp2.0\CityInfo.AssemblyInfoInputs.cache
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\obj\Debug\netcoreapp2.0\CityInfo.AssemblyInfo.cs
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\obj\Debug\netcoreapp2.0\CityInfo.dll
+C:\Users\Bryce\Documents\Playground\CityInfo\CityInfo\obj\Debug\netcoreapp2.0\CityInfo.pdb
