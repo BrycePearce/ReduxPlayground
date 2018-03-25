@@ -27,6 +27,8 @@ namespace CityInfo
             else {
                 app.UseExceptionHandler();
             }
+            // if you go to a route that doesn't exist, it will return something like 404 not found on the webpage.
+            app.UseStatusCodePages();
 
             app.UseMvc(); // ? allows get  method to run somehow?
             //app.Run(async (context) => {

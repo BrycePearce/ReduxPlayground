@@ -21,17 +21,53 @@ namespace CityInfo {
                 new CityDto() {
                 Id = 1,
                 Name = "New York City",
-                Description = "The one with that big park."
-                },
+                Description = "The one with that big park.",
+                PointsOfInterest = new List<PointOfInterestDto>() {
+                    new PointOfInterestDto() {
+                    Id = 1,
+                    Name = "Central Park",
+                    Description = "A neato park."
+                    },
+                    new PointOfInterestDto() {
+                    Id = 2,
+                    Name = "Empire State Building",
+                    Description = "Skyscraper."
+                    },
+             }
+        },
                 new CityDto() {
                 Id = 2,
                 Name = "Antwerp",
-                Description = "The one with the cathedral that was never finished."
+                Description = "The one with the cathedral that was never finished.",
+                PointsOfInterest = new List<PointOfInterestDto>() {
+                    new PointOfInterestDto() {
+                    Id = 1,
+                    Name = "Anthill",
+                    Description = "Includes ants."
+                    },
+                    new PointOfInterestDto() {
+                    Id = 2,
+                    Name = "Werp",
+                    Description = "All the werp you know and love."
+                    },
+             }
                 },
                 new CityDto() {
                 Id = 3,
                 Name = "Paris",
-                Description = "The one with that big tower."
+                Description = "The one with that big tower.",
+                PointsOfInterest = new List<PointOfInterestDto>() {
+                    new PointOfInterestDto() {
+                    Id = 1,
+                    Name = "Pearland",
+                    Description = "Includes pears."
+                    },
+                    new PointOfInterestDto() {
+                    Id = 2,
+                    Name = "is",
+                    Description = "The city of love."
+                    },
+                }
                 },
             };
         }
