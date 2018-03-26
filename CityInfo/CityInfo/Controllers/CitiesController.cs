@@ -8,7 +8,7 @@ namespace CityInfo.Controllers {
     [Route("api/cities")]
     public class CitiesController : Controller {
         // return a list of all available cities when GET "api/cities" is requested 
-        [HttpGet("api/cities")]
+        [HttpGet()]
         public IActionResult GetCities() {
             return Ok(CitiesDataStore.Current.Cities);
         }
@@ -32,7 +32,6 @@ namespace CityInfo.Controllers {
             }
 
             return Ok(cityToReturn);
-
         }
     }
 }
