@@ -43,6 +43,15 @@ namespace CityInfo.Controllers {
             if (pointOfInterest == null) {
                 return BadRequest();
             }
+            // if description and name are the same, return an error
+            if (pointOfInterest.Description == pointOfInterest.Name) {
+                ModelState.AddModelError("Description", "The provided description should be different from the name.");
+            }
+            // make sure the request is valid according to our 'PointOfInterestForCreationDto' [required] blocks
+            // it will also check to see if ModelState is set to invalid inside of this function, e.g., ModelState.AddModelError
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState); // ModelState tells you the specifically what is wrong, in the response for the request. For customized error handling + default
+            }
             // ---
             // Error: Trying to add a point of interest to a city that does not exist
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
@@ -54,7 +63,7 @@ namespace CityInfo.Controllers {
             // Bad Practice, will be improved: Calculate the number of cities we have by looping through all of them and finding the one with the highest Id
             var maxPointOfInterestId = CitiesDataStore.Current.Cities.SelectMany(
                 c => c.PointsOfInterest).Max(p => p.Id);
-            
+
             // Create the new point of interest object
             var finalPointOfInterest = new PointOfInterestDto() {
                 Id = ++maxPointOfInterestId, // add one more to the current value, which we will use for the new point of interest
