@@ -1,4 +1,5 @@
 ﻿using CityInfo.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -78,6 +79,8 @@ namespace CityInfo.Controllers {
             // note: getpoint ofinterest refers to the id that was sent in the GET route
             return CreatedAtRoute("GetPointOfInterest", new { cityId = cityId, id = finalPointOfInterest.Id }, finalPointOfInterest);
         }
+
+        // Allows user to update a city POI name/description, but requires the user to pass in both fields. Left out fields will be nulled.
         [HttpPut("{cityId}/pointsofinterest/{id}")]
         public IActionResult UpdatePointOfInterest(int cityId, int id,
             [FromBody] PointOfInterestDto pointOfInterest) // get content of the request
@@ -106,6 +109,59 @@ namespace CityInfo.Controllers {
             // Update all fields
             pointOfInterestFromStore.Name = pointOfInterest.Name;
             pointOfInterestFromStore.Description = pointOfInterest.Description;
+
+            // respond with 204 (no content) on success, 200 is also fine
+            return NoContent();
+        }
+
+        // PUT to update partial values
+        [HttpPatch("{cityId}/pointsofinterest/{id}")]
+        public IActionResult PartiallyUpdatePointOfInterest(int cityId, int id,
+            [FromBody] JsonPatchDocument<PointOfInterestUpdateDto> patchDoc) { // we use PointOfInterestUpdateDto instead of PointOfInterestDto, because PointOfInterestDto has an id. And we don't want users to change id's.
+            if (patchDoc == null) {
+                return BadRequest();
+            }
+
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            if (city == null) {
+                return NotFound();
+            }
+
+            var pointOfInterestFromStore = city.PointsOfInterest.FirstOrDefault(c => c.Id == id);
+            if (pointOfInterestFromStore == null) {
+                return NotFound();
+            }
+
+            var pointOfInterestToPatch =
+                new PointOfInterestUpdateDto() {
+                    Name = pointOfInterestFromStore.Name,
+                    Description = pointOfInterestFromStore.Description
+                };
+            // transform pointOfInterestToPatch from point of interest recieved from data store, to type PointOfInterestUpdateDto
+            patchDoc.ApplyTo(pointOfInterestToPatch, ModelState); // we pass in ModelState because it knows what values are in PointOfInterestUpdateDto. So if user passes in something other than
+                                                                  // Name/Description, it will cause ModelState to be invalid.
+            
+            // After doing patchDoc, it may find some of the validation rules are being broken, or bad field is being sent. So make sure it is correct here.
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+            }
+
+            // Manually apply our custom error handling rule, name cannot equal description
+            if (pointOfInterestToPatch.Description == pointOfInterestToPatch.Name) {
+                ModelState.AddModelError("Description", "The provided description should be different from the name.");
+            }
+
+            // Make sure the model being patched is still valid (e.g. user cannot remove name, so if user tries to patch remove it, it should throw an error)
+            // e.g. tryValidateModel triggers validation of PointOfInterestUpdateDto
+            TryValidateModel(pointOfInterestToPatch);
+
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+            }
+
+            // Update all fields
+            pointOfInterestFromStore.Name = pointOfInterestToPatch.Name;
+            pointOfInterestFromStore.Description = pointOfInterestToPatch.Description;
 
             // respond with 204 (no content) on success, 200 is also fine
             return NoContent();
