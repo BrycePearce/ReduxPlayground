@@ -78,5 +78,37 @@ namespace CityInfo.Controllers {
             // note: getpoint ofinterest refers to the id that was sent in the GET route
             return CreatedAtRoute("GetPointOfInterest", new { cityId = cityId, id = finalPointOfInterest.Id }, finalPointOfInterest);
         }
+        [HttpPut("{cityId}/pointsofinterest/{id}")]
+        public IActionResult UpdatePointOfInterest(int cityId, int id,
+            [FromBody] PointOfInterestDto pointOfInterest) // get content of the request
+        {
+            if (pointOfInterest == null) {
+                return BadRequest();
+            }
+            if (pointOfInterest.Description == pointOfInterest.Name) {
+                ModelState.AddModelError("Description", "The provided description should be different from the name.");
+            }
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState); // ModelState tells you the specifically what is wrong in the response for the request. For customized error handling + default
+            }
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId); // find a city id that matches a city id in our database store
+
+            if (city == null) {
+                return NotFound();
+            }
+
+            var pointOfInterestFromStore = city.PointsOfInterest.FirstOrDefault(p => p.Id == id); // find a POI id that matches a POI id in our database store
+
+            if (pointOfInterestFromStore == null) {
+                return NotFound();
+            }
+
+            // Update all fields
+            pointOfInterestFromStore.Name = pointOfInterest.Name;
+            pointOfInterestFromStore.Description = pointOfInterest.Description;
+
+            // respond with 204 (no content) on success, 200 is also fine
+            return NoContent();
+        }
     }
 }
