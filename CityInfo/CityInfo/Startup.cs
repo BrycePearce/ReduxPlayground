@@ -30,7 +30,7 @@ namespace CityInfo
             // if you go to a route that doesn't exist, it will return something like 404 not found on the webpage.
             app.UseStatusCodePages();
 
-            app.UseMvc(); // ? allows get  method to run somehow?
+            app.UseMvc(); // http://blog.2mas.xyz/asp-net-5-adding-mvc-to-an-application/
             //app.Run(async (context) => {
             //    await context.Response.WriteAsync("Hello World!");
             //});

@@ -1,6 +1,7 @@
 ﻿using CityInfo.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,29 @@ using System.Threading.Tasks;
 namespace CityInfo.Controllers {
     [Route("api/cities")]
     public class PointsOfInterestController : Controller {
+        private ILogger<PointsOfInterestController> _logger;
+        // constructor injection of logger
+        public PointsOfInterestController(ILogger<PointsOfInterestController> logger) {
+            _logger = logger;
+        }
+
         [HttpGet("{cityId}/pointsofinterest")]
         public IActionResult GetPointsOfInterest(int cityId) {
-            // try and find the city
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            try {
+                // try and find the city
+                var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
 
-            if (city == null) {
-                return NotFound();
+                if (city == null) {
+                    _logger.LogInformation($"City with id {cityId} wasn't found when accessing points of interest."); // logger for debugging purposes only
+                    return NotFound();
+                }
+                return Ok(city.PointsOfInterest);
             }
-            return Ok(city.PointsOfInterest);
+            // handle exceptions, such as city NotFound();
+            catch (Exception ex) {
+                _logger.LogCritical($"Exception while getting points of interest for city with id {cityId}.", ex);
+                return StatusCode(500, "A problem happened while handling your request."); // Don't give too many details on the return, since the client can see it as well.
+            }
         }
 
         [HttpGet("{cityId}/pointsofinterest/{id}", Name = "GetPointOfInterest")]
