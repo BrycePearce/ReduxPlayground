@@ -11,7 +11,7 @@ namespace CityInfo.Controllers {
     [Route("api/cities")]
     public class PointsOfInterestController : Controller {
         private ILogger<PointsOfInterestController> _logger;
-        // constructor injection of logger
+        // constructor injection of (error) logger
         public PointsOfInterestController(ILogger<PointsOfInterestController> logger) {
             _logger = logger;
         }
