@@ -27,7 +27,7 @@ namespace Library.API.Controllers
             var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
 
             // serialize authors to JSON *note: JsonResult formats the given object to json
-            return new JsonResult(authors);
+            return Ok(authors);
         }
 
         [HttpGet("{id}")]
@@ -36,10 +36,14 @@ namespace Library.API.Controllers
             // call to get author
             var authorFromRepo = _libraryRepository.GetAuthor(id);
 
+            if (authorFromRepo == null) {
+                return NotFound();
+            }
+
             // use auto mapper to map given author type to our single Author Dto type
             var author = Mapper.Map<AuthorDto>(authorFromRepo);
 
-            return new JsonResult(author);
+            return Ok(author);
         }
     }
 }
