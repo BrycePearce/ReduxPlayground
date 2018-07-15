@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Library.API.Helpers;
 using Library.API.Models;
 using Library.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace Library.API.Controllers
@@ -28,6 +28,18 @@ namespace Library.API.Controllers
 
             // serialize authors to JSON *note: JsonResult formats the given object to json
             return new JsonResult(authors);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetAuthor(Guid id)
+        {
+            // call to get author
+            var authorFromRepo = _libraryRepository.GetAuthor(id);
+
+            // use auto mapper to map given author type to our single Author Dto type
+            var author = Mapper.Map<AuthorDto>(authorFromRepo);
+
+            return new JsonResult(author);
         }
     }
 }
