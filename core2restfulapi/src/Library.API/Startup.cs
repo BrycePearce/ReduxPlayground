@@ -7,6 +7,7 @@ using Library.API.Services;
 using Library.API.Entities;
 using Microsoft.EntityFrameworkCore;
 using Library.API.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace Library.API
 {
@@ -45,15 +46,28 @@ namespace Library.API
             }
             else
             {
-                app.UseExceptionHandler();
+                // exception handler middleware
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async context =>
+                    {
+                        // global exception handler (when in prod mode)
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync("generic 500 exception error :(:(:(");
+                    });
+                });
             }
             // auto-mapper
             AutoMapper.Mapper.Initialize(cfg =>
             {
+                // Auto mapper for Authors
                 cfg.CreateMap<Entities.Author, Models.AuthorDto>() // mapping resource Author, to our defined Author model
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => // since we want to transform "name" to "firstname lastname", do that for this member.
                 $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge())); // use our helper method "getCurrentAge" to transform this member
+
+                // Auto mapper for Books
+                cfg.CreateMap<Entities.Book, Models.BookDto>(); // since we have no special mapping, this statement is good enough. It will auto-map.
             });
 
             libraryContext.EnsureSeedDataForContext();

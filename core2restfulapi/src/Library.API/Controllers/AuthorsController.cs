@@ -36,7 +36,8 @@ namespace Library.API.Controllers
             // call to get author
             var authorFromRepo = _libraryRepository.GetAuthor(id);
 
-            if (authorFromRepo == null) {
+            if (authorFromRepo == null)
+            {
                 return NotFound();
             }
 
