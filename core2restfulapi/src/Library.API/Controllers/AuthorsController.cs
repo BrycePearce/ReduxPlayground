@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Library.API.Entities;
 using Library.API.Models;
 using Library.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace Library.API.Controllers
             return Ok(authors);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetAuthor")]
         public IActionResult GetAuthor(Guid id)
         {
             // call to get author
@@ -45,6 +46,32 @@ namespace Library.API.Controllers
             var author = Mapper.Map<AuthorDto>(authorFromRepo);
 
             return Ok(author);
+        }
+
+        [HttpPost]
+        public IActionResult CreateAuthor([FromBody] AuthorForCreationDto author) // get the body of the POST
+        {
+            if (author == null)
+            {
+                return BadRequest();
+            }
+
+            // map the author to our Author model, which is what the AddAuthor() function accepts.
+            var authorEntity = Mapper.Map<Author>(author);
+
+            // add the author
+            _libraryRepository.AddAuthor(authorEntity);
+
+            // Save, and handle false if saving returns false.
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Creating an author failed on save.");
+            }
+
+            // map the author to our client contract and return it
+            var authorToReturn = Mapper.Map<AuthorDto>(authorEntity);
+
+            return CreatedAtRoute("GetAuthor", new { id = authorToReturn.Id }, authorToReturn);
         }
     }
 }

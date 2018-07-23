@@ -2,6 +2,7 @@
 
 namespace Library.API.Models
 {
+    // external return source model
     public class BookDto
     {
         public Guid Id { get; set; }

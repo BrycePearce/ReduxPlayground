@@ -8,6 +8,7 @@ using Library.API.Entities;
 using Microsoft.EntityFrameworkCore;
 using Library.API.Helpers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Library.API
 {
@@ -24,7 +25,13 @@ namespace Library.API
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(setupAction => {
+                // returns not acceptable if you attempt to request non JSON format, like XML. Returns 406 not acceptable.
+                setupAction.ReturnHttpNotAcceptable = true;
+
+                setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter()); // format JSON responses to XML, if XML requested in header.
+
+            });
 
             // register the DbContext on the container, getting the connection string from
             // appSettings (note: use this during development; in a production environment,
@@ -60,7 +67,7 @@ namespace Library.API
             // auto-mapper
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                // Auto mapper for Authors
+                // Auto mapper for get Authors
                 cfg.CreateMap<Entities.Author, Models.AuthorDto>() // mapping resource Author, to our defined Author model
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => // since we want to transform "name" to "firstname lastname", do that for this member.
                 $"{src.FirstName} {src.LastName}"))
@@ -68,6 +75,9 @@ namespace Library.API
 
                 // Auto mapper for Books
                 cfg.CreateMap<Entities.Book, Models.BookDto>(); // since we have no special mapping, this statement is good enough. It will auto-map.
+
+                // Auto Mapper for create author
+                cfg.CreateMap<Models.AuthorForCreationDto, Entities.Author>();
             });
 
             libraryContext.EnsureSeedDataForContext();
