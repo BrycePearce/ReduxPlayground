@@ -47,6 +47,7 @@ namespace Library.API.Controllers
             var idsAsString = string.Join(",", authorCollectionToReturn.Select(a => a.Id));
 
             // created at the GetAuthorCollection route with the ids (idsAsString), and authorCollectionToReturn as the response body
+            // **Note: this lets you use response header to find the GUID of the created authors, allowing you to then to GET the response header and get back your created authors.
             return CreatedAtRoute("GetAuthorCollection", new { ids = idsAsString }, authorCollectionToReturn);
         }
 

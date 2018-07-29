@@ -30,6 +30,7 @@ namespace Library.API
                 setupAction.ReturnHttpNotAcceptable = true;
 
                 setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter()); // format JSON responses to XML, if XML requested in header.
+                setupAction.InputFormatters.Add(new XmlDataContractSerializerInputFormatter());
 
             });
 
