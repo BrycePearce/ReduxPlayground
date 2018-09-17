@@ -89,5 +89,45 @@ namespace Library.API.Controllers
             // Success
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateBookForAuthor(Guid authorId, Guid id, [FromBody] BookForUpdateDto book)
+        {
+            if (book == null)
+            {
+                return BadRequest();
+            }
+
+            // check if the author exists
+            if (!_libraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
+            // fetch book from author
+            var bookForAuthorFromRepo = _libraryRepository.GetBookForAuthor(authorId, id);
+
+            // if we cannot find the book to be deleted, return not found
+            if (bookForAuthorFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            // Auto mapper maps to bookForUpdateDto format
+            // then Applies Updated field values
+            // then it maps updated values back to entity (book is source object, bookForAuthorFromRepo is destination object)
+            Mapper.Map(book, bookForAuthorFromRepo); // (saves updated values in bookforAuthorFromRepo)
+
+            // now the author should have the updated field values, so we can call to update it.
+            _libraryRepository.UpdateBookForAuthor(bookForAuthorFromRepo);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Updating book {id} for author {authorId} failed on save.");
+            }
+
+            // Success, 204 no-content
+            return NoContent();
+        }
     }
 }

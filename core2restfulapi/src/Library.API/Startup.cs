@@ -79,6 +79,10 @@ namespace Library.API
 
                 // Auto Mapper for create author
                 cfg.CreateMap<Models.AuthorForCreationDto, Entities.Author>();
+
+                // Auto Mapper for UpdateBookForAuthor (book -> bookForAuthorFromRepo)
+                cfg.CreateMap<Models.BookForUpdateDto, Entities.Book>();
+
             });
 
             libraryContext.EnsureSeedDataForContext();
