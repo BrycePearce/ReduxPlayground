@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Library.API.Entities;
 using Library.API.Models;
 using Library.API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace Library.API.Controllers
             return Ok(booksForAuthor);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetBookForAuthor")]
         public IActionResult GetBookForAuthor(Guid authorId, Guid id)
         {
             // check if the author exists
@@ -107,10 +108,23 @@ namespace Library.API.Controllers
             // fetch book from author
             var bookForAuthorFromRepo = _libraryRepository.GetBookForAuthor(authorId, id);
 
-            // if we cannot find the book to be deleted, return not found
+            // if we cannot find the book to be updated, create it
             if (bookForAuthorFromRepo == null)
             {
-                return NotFound();
+                var bookToAdd = Mapper.Map<Book>(book); // maps title/description from BookForUpdateDto to Book model
+                bookToAdd.Id = id;
+                _libraryRepository.AddBookForAuthor(authorId, bookToAdd);
+                if (!_libraryRepository.Save())
+                {
+                    throw new Exception($"Upserting book {id} for author {authorId} failed on save.");
+                }
+
+                var bookToReturn = Mapper.Map<BookDto>(bookToAdd);
+
+                // Created
+                return CreatedAtRoute("GetBookForAuthor", // note: the first param GetBookForAuthor is in relation to [HttpGet("{id}", Name = "GetBookForAuthor")]
+                    new { authorId = authorId, id = bookToReturn.Id },
+                    bookToReturn);
             }
 
             // Auto mapper maps to bookForUpdateDto format
