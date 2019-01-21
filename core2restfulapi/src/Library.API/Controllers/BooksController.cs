@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Library.API.Entities;
+using Library.API.Helpers;
 using Library.API.Models;
 using Library.API.Services;
 using Microsoft.AspNetCore.JsonPatch;
@@ -59,6 +60,45 @@ namespace Library.API.Controllers
             var bookForAuthor = Mapper.Map<BookDto>(bookForAuthorFromRepo);
 
             return Ok(bookForAuthor);
+        }
+
+        [HttpPost()]
+        public IActionResult CreateBookForAuthor(Guid authorId, [FromBody] BookForCreationDto book)
+        {
+            if (book == null)
+            {
+                return BadRequest();
+            }
+
+            // Add manual validator check
+            if (book.Description == book.Title)
+            {
+                ModelState.AddModelError(nameof(BookForCreationDto), "The provided description should be different from the title."); // first param will just be the title of the error in the response
+            }
+
+            // this checks validations like required or maxlength, as defined in the models. Also checks our custom validators, like above.
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState); // returns something like "The Title field is required"
+            }
+
+            if (!_libraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
+            var bookEntity = Mapper.Map<Book>(book);
+
+            _libraryRepository.AddBookForAuthor(authorId, bookEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception($"Creating a book for author {authorId} failed on save.");
+            }
+
+            var bookToReturn = Mapper.Map<BookDto>(bookEntity);
+
+            return CreatedAtRoute("GetBookForAuthor", new { authorId = authorId, id = bookToReturn.Id }, bookToReturn);
         }
 
         [HttpDelete("{id}")]
