@@ -110,6 +110,7 @@ namespace Library.API.Controllers
                 return NotFound();
             }
 
+
             // fetch book from author
             var bookForAuthorFromRepo = _libraryRepository.GetBookForAuthor(authorId, id);
 
@@ -138,6 +139,18 @@ namespace Library.API.Controllers
             if (book == null)
             {
                 return BadRequest();
+            }
+
+            // Add manual validator check
+            if (book.Description == book.Title)
+            {
+                ModelState.AddModelError(nameof(BookForUpdateDto), "The provided description should be different from the title."); // first param will just be the title of the error in the response
+            }
+
+            // Add manual validator check
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
             }
 
             // check if the author exists
