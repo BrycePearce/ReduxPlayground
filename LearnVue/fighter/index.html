@@ -10,7 +10,7 @@
 
 <body>
     <div id="app">
-        <section class="row">
+        <section v-if="gameIsRunning" class="row">
             <div class="small-6 columns">
                 <h1 class="text-center">YOU</h1>
                 <!-- Player Missing Health -->
@@ -45,11 +45,11 @@
                 <button @click="giveUp" id="give-up">GIVE UP</button>
             </div>
         </section>
-        <section class="row log">
+        <section v-if="turns.length > 0" class="row log">
             <div class="small-12 columns">
                 <ul>
-                    <li>
-
+                    <li v-for="turn in turns" :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+                        {{ turn.text }}
                     </li>
                 </ul>
             </div>
