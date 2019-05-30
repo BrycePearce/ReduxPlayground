@@ -9,10 +9,10 @@
     export default {
         methods: {
             increment() {
-                this.$store.state.counter++;
+                this.$store.commit('increment'); // vuex will search for a method named 'increment' in mutations and execute it
             },
             decrement() {
-                this.$store.state.counter--;
+                this.$store.commit('decrement');
             }
         }
     }
