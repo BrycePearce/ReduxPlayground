@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
     },
     mutations: { // Mutations change state, and track changes. ***Mutations are the only way to change the state value*** (unless you access statea directly)
         increment: ((state) => {
-            state.counter++;
+            state.counter++; // note: mutations is synchronous. Do not do timeouts or http calls here.
         }),
         decrement: ((state) => {
             state.counter--;
