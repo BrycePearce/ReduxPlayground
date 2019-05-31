@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: { // has to be named state, vuex looks for it. Keeps track of the items/variables we want to access.
-        counter: 0
+        counter: 0,
+        value: 0
     },
     getters: { // Getters will do any calculations we need, so that we don't need to do it in multiple components. (State here is automatically passed by vuex)
         doubleCounter: ((state) => { // Use getters when you want to display a computed value of state (e.g. counter * 2), but *** you cannot alter state from a getter ***
@@ -14,6 +15,9 @@ export const store = new Vuex.Store({
         stringCounter: ((state) => {
             return state.counter + ' Clicks';
         }),
+        value: (state) => {
+            return state.value;
+        }
     },
     mutations: { // Mutations change state, and track changes. ***Mutations are the only way to change the state value*** (unless you access statea directly)
         increment: ((state, payload) => {
@@ -22,10 +26,13 @@ export const store = new Vuex.Store({
         decrement: ((state, payload) => {
             state.counter -= payload;
         }),
+        updateValue: (state, payload) => {
+            state.value = payload;
+        }
     }, // ** Consider only having actions to commit to your mutations. It can help keep things organized **
     actions: { // actions allow you to make mutation changes asynchronous. You 'commit' to the mutation once the 'action' is done.
         increment: ((context, payload) => { // increment: ({context}) => { commit('increment') } is also valid
-            context.commit('increment', payload) // payload here is how much to increment by
+            context.commit('increment', payload) // payload here is how much to increment by. Note: commits call mutations.
         }),
         decrement: ((context, payload) => {
             context.commit('decrement', payload)
@@ -39,6 +46,9 @@ export const store = new Vuex.Store({
             setTimeout(() => {
                 context.commit('decrement', payload.by)
             }, payload.duration)
-        })
+        }),
+        updateValue ({ commit }, payload) {
+            commit('updateValue', payload)
+        }
     }
 })
