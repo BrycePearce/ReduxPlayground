@@ -16,11 +16,29 @@ export const store = new Vuex.Store({
         }),
     },
     mutations: { // Mutations change state, and track changes. ***Mutations are the only way to change the state value*** (unless you access statea directly)
-        increment: ((state) => {
-            state.counter++; // note: mutations is synchronous. Do not do timeouts or http calls here.
+        increment: ((state, payload) => {
+            state.counter += payload; // note: mutations is synchronous. Do not do timeouts or http calls here. If you need to do that, then use an Action
         }),
-        decrement: ((state) => {
-            state.counter--;
+        decrement: ((state, payload) => {
+            state.counter -= payload;
         }),
+    }, // ** Consider only having actions to commit to your mutations. It can help keep things organized **
+    actions: { // actions allow you to make mutation changes asynchronous. You 'commit' to the mutation once the 'action' is done.
+        increment: ((context, payload) => { // increment: ({context}) => { commit('increment') } is also valid
+            context.commit('increment', payload) // payload here is how much to increment by
+        }),
+        decrement: ((context, payload) => {
+            context.commit('decrement', payload)
+        }),
+        asyncIncrement: ((context, payload) => { // the whole point of actions is to allow mutations to take place asynchronously 
+            setTimeout(() => {
+                context.commit('increment', payload.by)
+            }, payload.duration)
+        }),
+        asyncDecrement: ((context, payload) => {
+            setTimeout(() => {
+                context.commit('decrement', payload.by)
+            }, payload.duration)
+        })
     }
 })
