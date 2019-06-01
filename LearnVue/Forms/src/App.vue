@@ -11,7 +11,12 @@
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input v-model.lazy="userData.password" type="password" id="password" class="form-control">
+            <input
+              v-model.lazy="userData.password"
+              type="password"
+              id="password"
+              class="form-control"
+            >
           </div>
           <div class="form-group">
             <label for="age">Age</label>
@@ -53,8 +58,13 @@
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
           <label for="priority">Priority</label>
           <select v-model="selectedPriority" id="priority" class="form-control">
-            <option v-for="priority in priorities"> {{ priority }} </option>
+            <option v-for="priority in priorities">{{ priority }}</option>
           </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+            <app-switch v-model="dataSwitch"></app-switch>
         </div>
       </div>
       <hr>
@@ -74,17 +84,17 @@
           <div class="panel-body">
             <p>Mail: {{ userData.email }}</p>
             <p>Password: {{ userData.password }}</p>
-            <p>Age: {{ userData.age }} </p>
-            <p style="white-space: pre">Message: {{ message }} </p>
+            <p>Age: {{ userData.age }}</p>
+            <p style="white-space: pre">Message: {{ message }}</p>
             <p>
               <strong>Send Mail?</strong>
             </p>
             <ul>
-              <li v-for="item in sendMail"> {{ item }}</li>
+              <li v-for="item in sendMail">{{ item }}</li>
             </ul>
-            <p>Gender: {{ gender }} </p>
+            <p>Gender: {{ gender }}</p>
             <p>Priority: {{ selectedPriority }}</p>
-            <p>Switched:</p>
+            <p>Switched: {{ dataSwitch }}</p>
           </div>
         </div>
       </div>
@@ -93,6 +103,7 @@
 </template>
 
 <script>
+import Switch from "./Switch.vue";
 export default {
   data() {
     return {
@@ -101,12 +112,16 @@ export default {
         password: "",
         age: 27
       },
-      message: 'A new text',
+      message: "A new text",
       sendMail: [],
-      gender: 'Other',
-      priorities: ['High', 'Medium', 'Low'],
-      selectedPriority: 'High'
+      gender: "Other",
+      priorities: ["High", "Medium", "Low"],
+      selectedPriority: "High",
+      dataSwitch: true
     };
+  },
+  components: {
+    appSwitch: Switch
   }
 };
 </script>
