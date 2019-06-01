@@ -12,6 +12,13 @@
           <input v-model="user.email" class="form-control" type="text">
         </div>
         <button class="btn btn-primary" @click="submit">Send</button>
+        <hr>
+        <button class="btn btn-primary" @click="fetchData">Fetch Data</button>
+        <br>
+        <br>
+        <ul class="list-group">
+          <li class="list-group-item" v-for="(u, index) in users" :key="index">{{index + 1}}.) {{ u.username }} - {{ u.email }}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -24,18 +31,40 @@ export default {
       user: {
         username: "",
         email: ""
-      }
+      },
+      users: []
     };
   },
   methods: {
-      submit() {
-          this.$http.post('https://vuejs-http-demo-project.firebaseio.com/data.json', this.user)
-          .then((response) => {
-              console.log(response);
-          }, (error) => {
-              console.log(error)
-          });
-      }
+    submit() {
+      this.$http
+        .post(
+          "",
+          this.user
+        )
+        .then(
+          response => {
+            console.log(response);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    },
+    fetchData() {
+      this.$http
+        .get("")
+        .then(response => {
+          return response.json(); // converts response into json. Otherwise would be str
+        })
+        .then(data => {
+          const resultArray = [];
+          for (let key in data) {
+            resultArray.push(data[key]);
+          }
+          this.users = resultArray;
+        });
+    }
   }
 };
 </script>
