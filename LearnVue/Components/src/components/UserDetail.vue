@@ -3,6 +3,7 @@
         <h3>You may view the User Details here</h3>
         <p>Many Details</p>
         <p>Child component recieved name: {{ switchName() }}</p>
+        <p>Child component recieved name: {{ userAge }}</p>
         <button @click="resetName">Reset Name</button>
         <button @click="resetFn()">Reset Name</button>
     </div>
@@ -19,7 +20,8 @@ export default {
             // default: '' // you can also set default value
         // default: function() { return {} } if you want default to be an object, or an array, or something
         },
-        resetFn: Function // you can pass functions down as a prop
+        resetFn: Function, // you can pass functions down as a prop
+        userAge: Number
     },
     methods: {
         switchName() {
