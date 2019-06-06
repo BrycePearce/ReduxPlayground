@@ -13,7 +13,7 @@
                 <h1>Custom Directives</h1>
                 <p v-highlight:background="'red'">Color this</p>
                 <p v-highlight:background.delayed="'red'">Color this, too</p>
-                <p v-local-highlight="'green'">Color this, locally</p>
+                <p v-local-highlight:background.blink="{mainColor: 'red', secondColor: 'orange', delay: 500}">Color this, locally</p>
                 <p v-highlight="'red'">Color this, for the last time</p>
             </div>
         </div>
@@ -26,7 +26,15 @@
         directives: {
             'local-highlight': {
                 bind(el, binding, vnode) {
-                     el.style.backgroundColor = binding.value;
+                    if(binding.modifiers['blink']) {
+                        let mainColor = binding.value.mainColor;
+                        let secondColor = binding.value.secondColor;
+                        let currentColor = mainColor;
+                    setInterval(() => {
+                        currentColor === secondColor ? currentColor = mainColor : currentColor = secondColor;
+                        el.style.backgroundColor = currentColor;
+                    }, binding.value.delay);
+                    }
                 }
             }
         }
