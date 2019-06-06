@@ -13,6 +13,7 @@
                 <h1>Custom Directives</h1>
                 <p v-highlight:background="'red'">Color this</p>
                 <p v-highlight:background.delayed="'red'">Color this, too</p>
+                <p v-local-highlight="'green'">Color this, locally</p>
                 <p v-highlight="'red'">Color this, for the last time</p>
             </div>
         </div>
@@ -21,6 +22,14 @@
 
 <script>
     export default {
+        // register local directives for just this file
+        directives: {
+            'local-highlight': {
+                bind(el, binding, vnode) {
+                     el.style.backgroundColor = binding.value;
+                }
+            }
+        }
     }
 </script>
 
