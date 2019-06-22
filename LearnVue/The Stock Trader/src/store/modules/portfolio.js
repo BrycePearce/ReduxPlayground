@@ -10,9 +10,7 @@ const mutations = {
         quantity
     }) {
         // Check if the stock exists
-        const record = state.stocks.find(stock => {
-            stock.id === stockId
-        });
+        const record = state.stocks.find(stock => stock.id === stockId);
 
         // if it does, buy it
         if (record) {
@@ -34,9 +32,7 @@ const mutations = {
         stockPrice
     }) {
         // Check if the stock exists
-        const record = state.stocks.find(stock => {
-            stock.id === stockId
-        });
+        const record = state.stocks.find(stock => stock.id === stockId);
 
         // If we are selling a valid amount of stocks
         if (record.quantity > quantity) {
@@ -46,7 +42,7 @@ const mutations = {
         }
 
         // update funds
-        state.funds = stockPrice * quantity;
+        state.funds += stockPrice * quantity;
     }
 }
 

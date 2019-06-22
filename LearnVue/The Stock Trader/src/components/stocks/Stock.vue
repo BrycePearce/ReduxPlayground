@@ -9,7 +9,7 @@
       </div>
       <div class="panel-body">
         <div class="pull-left">
-          <input v-model="quantity" type="number" class="form-control" placeholder="Quantity">
+          <input v-model.number="quantity" type="number" class="form-control" placeholder="Quantity">
         </div>
         <div class="pull-right">
           <button @click="buyStock" :disabled="quantity <= 0 || !Number.isInteger(quantity)" class="btn btn-success">Buy {{typeof(quantity)}}</button>
@@ -24,7 +24,7 @@ export default {
   props: ["stock"],
   data() {
     return {
-      quantity: 1
+      quantity: 0
     };
   },
   methods: {
