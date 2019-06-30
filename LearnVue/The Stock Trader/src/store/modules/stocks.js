@@ -8,7 +8,9 @@ const mutations = {
         state.stocks = stocks;
     },
     'RNG_STOCKS'(state) {
-
+        state.stocks.forEach(stock => {
+            stock.price = Math.round(stock.price * (1 + Math.random() - 0.5));
+        });
     }
 };
 
@@ -20,7 +22,7 @@ const actions = {
         commit('SET_STOCKS', stocks);
     }),
     randomizeStocks: ({commit}) => {
-        commit('RND_STOCKS');
+        commit('RNG_STOCKS');
     }
 }
 
