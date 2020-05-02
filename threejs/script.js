@@ -39,10 +39,22 @@ function init() {
     controls.rollSpeed = Math.PI / 24;
 
     // Add a cube to our scene, by default it sets it at 0,0,0 - which is where the camera is. We will not be ablve to see it by default
-    scene.add(cube);
+    let grid = new THREE.Object3D();
+    for (let row = 0; row < 100; row++) {
+        for (let col = 0; col < 100; col++) {
+            const box = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({
+                color: '#106b8c',
+                wireframe: true,
+            }));
+            box.position.x = (row - 10 / 2) * 10;
+            box.position.y = (col - 10 / 2) * 10;
+            grid.add(box);
+        }
+    }
+    scene.add(grid);
 
     // Move the camera out so we can see the cube
-    camera.position.z = 5;
+    camera.position.z = 1005;
 }
 
 // renders everything
