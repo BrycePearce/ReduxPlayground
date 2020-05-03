@@ -21,10 +21,10 @@ function createRenderer() {
 
 function createCamera() {
     console.log(window.innerWidth)
-    props.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+    props.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
     // default camera position
-    props.camera.position.z = 900;
+    props.camera.position.z = 500;
 }
 
 export default () => {

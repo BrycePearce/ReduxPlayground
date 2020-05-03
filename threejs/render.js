@@ -1,10 +1,25 @@
 import props from './config/reference.js';
 import tools from './tools/fly.js';
 
-// renders everything
-export default function render() {
+function updateEnvironment() {
+    // adds movement functionality
     const delta = tools.clock.getDelta();
     tools.fly.update(delta);
+
+    // move cube grid
+    props.structure.cubeGrid.rotation.x += 0.0009;
+    props.structure.cubeGrid.rotation.y = 0.0009;
+
+    // move individual cubes
+    props.structure.cubeGrid.children.forEach((cubeMesh) => {
+        cubeMesh.rotation.x += 0.03;
+        cubeMesh.rotation.y += 0.03;
+    });
+}
+
+// renders everything
+export default function render() {
+    updateEnvironment();
 
     // create a loop that draws, and re-draws the scene every time the screen is refreshed. (60 times per second on avg)
     requestAnimationFrame(render);

@@ -7,6 +7,10 @@ import props from '../config/reference.js';
 import tools from '../tools/fly.js';
 
 export default () => {
-    tools.fly = new FlyControls(props.camera, props.renderer.domElement)
+    // not sure if this is the best place to set these settings
+    const controls = new FlyControls(props.camera, props.renderer.domElement);
+    controls.movementSpeed = 75;
+    controls.rollSpeed = 0.8;
+    tools.fly = controls;
     tools.clock = new THREE.Clock();
 };

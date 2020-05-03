@@ -15,5 +15,6 @@ export default () => {
             grid.add(box);
         }
     }
-    props.scene.add(grid);
+    props.structure.cubeGrid = grid;
+    props.scene.add(props.structure.cubeGrid);
 };
