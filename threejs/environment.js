@@ -4,8 +4,8 @@ import props from './config/reference.js';
 
 export default () => {
     let grid = new THREE.Object3D();
-    for (let row = 0; row < 100; row++) {
-        for (let col = 0; col < 100; col++) {
+    for (let row = 0; row < 50; row++) {
+        for (let col = 0; col < 50; col++) {
             const box = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({
                 color: '#106b8c',
                 wireframe: true,
