@@ -47,5 +47,5 @@ function generateStars() {
 
     const points = new THREE.Points(geometry, material);
 
-    props.wscene.add(points);
+    props.scene.add(points);
 }
