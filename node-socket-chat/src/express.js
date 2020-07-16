@@ -13,7 +13,8 @@ const io = socketio(server);
 app.use(express.static(staticPath));
 
 io.on('connection', (socket) => {
-    socket.emit('welcomeEvent', 'Welcome!')
+    socket.emit('welcomeEvent', 'Welcome!');
+    socket.broadcast.emit('broadcastMessage', 'a new user joined');
 
     socket.on('message', (message) => {
         io.emit('broadcastMessage', message);

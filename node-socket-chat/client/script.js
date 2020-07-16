@@ -6,7 +6,7 @@ socket.on('welcomeEvent', (msg) => {
 });
 
 socket.on('broadcastMessage', (msg) => {
-    console.log('msg', msg);
+    console.log(msg);
 });
 
 
