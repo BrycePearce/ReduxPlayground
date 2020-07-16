@@ -1,11 +1,16 @@
 // initialize socket
 const socket = io();
 
-socket.on('countUpdated', (count) => {
-    console.log('updated count', count)
+socket.on('welcomeEvent', (msg) => {
+    console.log(msg)
+});
+
+socket.on('broadcastMessage', (msg) => {
+    console.log('msg', msg);
 });
 
 
-document.getElementById("increment").addEventListener("click", () => {
-    socket.emit('incremented');
+document.getElementById("send-button").addEventListener("click", () => {
+    const input = document.getElementById('message-input').value;
+    socket.emit('message', input);
 });

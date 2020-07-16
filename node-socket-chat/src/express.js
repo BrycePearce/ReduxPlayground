@@ -12,18 +12,12 @@ const io = socketio(server);
 
 app.use(express.static(staticPath));
 
-let count = 0;
 io.on('connection', (socket) => {
-    console.log('User connected!')
-    // send the current count to the new socket
-    socket.emit('countUpdated', count);
+    socket.emit('welcomeEvent', 'Welcome!')
 
-    // listen for increment events
-    socket.on('incremented', () => {
-        count++;
-        // io emits to every connection available
-        io.emit('countUpdated', count)
-    })
+    socket.on('message', (message) => {
+        io.emit('broadcastMessage', message);
+    });
 });
 
 
