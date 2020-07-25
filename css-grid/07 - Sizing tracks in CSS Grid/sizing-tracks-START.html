@@ -31,6 +31,10 @@
     .container {
       display: grid;
       grid-gap: 20px;
+      border: 10px solid var(--yellow);
+      /* fr takes up the rest of the space available in the parent container */
+      /* grid-template-columns: 200px 100px 1fr; */
+      grid-template-columns: 1fr 2fr 1fr;
     }
   </style>
 </body>
