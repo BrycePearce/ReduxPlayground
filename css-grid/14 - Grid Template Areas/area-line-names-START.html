@@ -46,6 +46,17 @@
     .container {
       display: grid;
       grid-gap: 20px;
+      grid-template-areas:
+        "wow wow wow wow wubzy wubzy wubzy wubzy"
+        "wow wow wow wow wubzy wubzy wubzy wubzy"
+        "wow wow wow wow wubzy wubzy wubzy wubzy"
+        "wow wow wow wow wubzy wubzy wubzy wubzy";
+    }
+
+    .item3 {
+      /* grid-area: wow; */
+      /* or */
+      grid-column: wow-start / wubzy-end;
     }
   </style>
 </body>

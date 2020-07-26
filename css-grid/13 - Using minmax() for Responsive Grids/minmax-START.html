@@ -21,7 +21,10 @@
       display: grid;
       grid-gap: 20px;
       border: 10px solid var(--yellow);
-      grid-template-columns: repeat(auto-fill, 150px);
+      /* minmax can make things auto-responsive, removing need for media queries query
+        small as it can go, then as it big as it can go
+       */
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
   </style>
 </body>
