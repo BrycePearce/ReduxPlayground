@@ -12,7 +12,7 @@
   <div class="container">
     <div class="item">1</div>
     <div class="item">2</div>
-    <div class="item">3</div>
+    <div class="item">Hi there friend</div>
     <div class="item">4</div>
     <div class="item">5</div>
     <div class="item">6</div>
@@ -31,10 +31,16 @@
     .container {
       display: grid;
       grid-gap: 20px;
+      height: 600px;
       border: 10px solid var(--yellow);
       /* fr takes up the rest of the space available in the parent container */
       /* grid-template-columns: 200px 100px 1fr; */
-      grid-template-columns: 1fr 2fr 1fr;
+      /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+      /* same things for rows */
+      /* grid-template-rows: 1fr 10fr 1fr 1fr; */
+
+      /* will auto size col to content */
+      grid-template-columns: auto 1fr;
     }
   </style>
 </body>
