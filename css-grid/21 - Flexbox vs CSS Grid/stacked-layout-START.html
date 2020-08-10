@@ -19,7 +19,12 @@
   </div>
 
   <style>
-    .stacked {}
+    .stacked {
+      /* rows are rigid in grid, so flex is more ideal for this scenario */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
 
     .stacked>* {
       width: 30%;
