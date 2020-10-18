@@ -8,6 +8,46 @@ body {
   color: #fdfdfd;
 }
 
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e1e1e;
+  height: 3rem;
+}
+
+header > .left {
+  display: flex;
+  align-items: center;
+}
+
+header > .left > button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+}
+
+header .left > button > .hamburger-menu > rect {
+  fill: white;
+}
+
+header > .left > nav > ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header > .left > nav > ul > li {
+  padding: 0 16px;
+}
+
+/* Cards */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
