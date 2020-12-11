@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -22,16 +24,17 @@ class BurgerBuilder extends Component {
   //   super(props);
   //   this.state = {...}
   // }
-  // new
 
+  // new
   state = {
     ingredients: {
       salad: 0,
       bacon: 0,
-      cheese: 3,
+      cheese: 0,
       meat: 0,
     },
     totalPrice: 4,
+    canPurchase: false,
   };
 
   addIngredientHandler = (type) => {
@@ -48,16 +51,66 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice + priceAddition;
 
-    this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+    this.setState(
+      { totalPrice: newPrice, ingredients: updatedIngredients },
+      () => {
+        this.updatePurchaseState();
+      }
+    );
   };
 
-  removeIngredientHandler = (type) => {};
+  removeIngredientHandler = (type) => {
+    // update ingredients display
+    const oldCount = this.state.ingredients[type];
+    const updatedCount = oldCount - 1;
+    const updatedIngredients = {
+      ...this.state.ingredients,
+    };
+    updatedIngredients[type] = updatedCount;
+
+    // update price totals
+    const priceAddition = INGREDIENT_PRICES[type];
+    const oldPrice = this.state.totalPrice;
+    const newPrice = oldPrice - priceAddition;
+
+    this.setState(
+      { totalPrice: newPrice, ingredients: updatedIngredients },
+      () => {
+        this.updatePurchaseState();
+      }
+    );
+  };
+
+  updatePurchaseState() {
+    const ingredients = { ...this.state.ingredients };
+    const sum = Object.values(ingredients).reduce(
+      (accum, curr) => (accum += curr),
+      0
+    );
+
+    this.setState({ canPurchase: sum > 0 });
+  }
 
   render() {
+    const disabledInfo = {
+      ...this.state.ingredients, // dereferences top level fields
+    };
+    for (let key in disabledInfo) {
+      disabledInfo[key] = disabledInfo[key] <= 0;
+    }
     return (
       <>
+        <Modal>
+          <OrderSummary ingredients={this.state.ingredients} />
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
-        <BuildControls ingredientAdded={this.addIngredientHandler} />
+        <BuildControls
+          ingredientAdded={this.addIngredientHandler}
+          ingredientRemoved={this.removeIngredientHandler}
+          disabled={disabledInfo}
+          canPurchase={this.state.canPurchase}
+          price={this.state.totalPrice}
+        />
       </>
     );
   }
