@@ -14,9 +14,9 @@ const INGREDIENT_PRICES = {
 
 // https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
 
-// Container components like this are concerned with how things work
+// Container components like this are concerned with how things work (a container is basically like a page)
 
-// Functional components deal with how things look
+// Functional components deal with how things look, the idea is no state, but can still have functions
 
 class BurgerBuilder extends Component {
   // old
@@ -35,6 +35,7 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 4,
     canPurchase: false,
+    purchasing: false,
   };
 
   addIngredientHandler = (type) => {
@@ -50,7 +51,6 @@ class BurgerBuilder extends Component {
     const priceAddition = INGREDIENT_PRICES[type];
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice + priceAddition;
-
     this.setState(
       { totalPrice: newPrice, ingredients: updatedIngredients },
       () => {
@@ -81,7 +81,7 @@ class BurgerBuilder extends Component {
     );
   };
 
-  updatePurchaseState() {
+  updatePurchaseState = () => {
     const ingredients = { ...this.state.ingredients };
     const sum = Object.values(ingredients).reduce(
       (accum, curr) => (accum += curr),
@@ -89,7 +89,19 @@ class BurgerBuilder extends Component {
     );
 
     this.setState({ canPurchase: sum > 0 });
-  }
+  };
+
+  purchaseHandler = () => {
+    this.setState({ purchasing: true });
+  };
+
+  purchaseCancelHandler = () => {
+    this.setState({ purchasing: false });
+  };
+
+  purchaseContinueHandler = () => {
+    alert("You continue!");
+  };
 
   render() {
     const disabledInfo = {
@@ -100,8 +112,16 @@ class BurgerBuilder extends Component {
     }
     return (
       <>
-        <Modal>
-          <OrderSummary ingredients={this.state.ingredients} />
+        <Modal
+          show={this.state.purchasing}
+          modalClosed={this.purchaseCancelHandler}
+        >
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            price={this.state.totalPrice}
+            purchaseCanceled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler}
+          />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
@@ -109,6 +129,7 @@ class BurgerBuilder extends Component {
           ingredientRemoved={this.removeIngredientHandler}
           disabled={disabledInfo}
           canPurchase={this.state.canPurchase}
+          ordered={this.purchaseHandler}
           price={this.state.totalPrice}
         />
       </>
