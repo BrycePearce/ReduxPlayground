@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useReducer, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
@@ -6,18 +6,49 @@ import ErrorModal from "../UI/ErrorModal";
 
 import Search from "./Search";
 
+const ingredientReducer = (currentIngredients, action) => {
+  switch (action.type) {
+    case "SET":
+      return action.ingredients;
+    case "ADD":
+      return [...currentIngredients, action.ingredient];
+    case "DELETE":
+      return currentIngredients.filter((ing) => ing.id !== action.id);
+    default:
+      throw new Error("Something went wrong!");
+  }
+};
+
+const httpReducer = (currHttpState, action) => {
+  switch (action.type) {
+    case "SEND":
+      return { loading: true, error: null };
+    case "RESPONSE":
+      return { ...currHttpState, loading: false }; // keep current values except for loading
+    case "ERROR":
+      return { loading: false, error: action.errorMessage };
+    case "CLEAR":
+      return { ...currHttpState, error: null };
+    default:
+      throw new Error("Oof");
+  }
+};
 const Ingredients = () => {
-  const [userIngredients, setUserIngredients] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
+  const [httpState, dispatchHttp] = useReducer(httpReducer, {
+    loading: false,
+    error: null,
+  });
+
   // useCallback will cache the function, so that when the component re-renders, this specific function will not re-create. So that when passing this function as a prop
   // it will not update the child component (causing it to re-render) and cause an infinite loop
   const filteredIngredientsHandler = useCallback((filteredIngredients) => {
-    setUserIngredients(filteredIngredients);
+    dispatch({ type: "SET", ingredients: filteredIngredients });
+    // setUserIngredients(filteredIngredients);
   }, []); // could pass filteredIngredients here, but don't actually have to
 
   const addIngredientHandler = (ingredient) => {
-    setIsLoading(true);
+    dispatchHttp({ type: "SEND" });
     fetch(
       "https://react-hooks-update-b0cfc-default-rtdb.firebaseio.com/ingredients.json",
       {
@@ -30,16 +61,16 @@ const Ingredients = () => {
     )
       .then((response) => response.json())
       .then((responseData) => {
-        setIsLoading(false);
-        setUserIngredients((prevIngredients) => [
-          ...prevIngredients,
-          { id: responseData.name, ...ingredient },
-        ]);
+        dispatchHttp({ type: "RESPONSE" });
+        dispatch({
+          type: "ADD",
+          ingredient: { id: responseData.name, ...ingredient },
+        });
       });
   };
 
   const removeIngredientHandler = (ingredientId) => {
-    setIsLoading(true);
+    dispatchHttp({ type: "SEND" });
     fetch(
       `https://react-hooks-update-b0cfc-default-rtdb.firebaseio.com/ingredients/${ingredientId}.json`,
       {
@@ -47,30 +78,29 @@ const Ingredients = () => {
       }
     )
       .then((res) => {
-        setIsLoading(false);
-
-        setUserIngredients((prevIngredients) =>
-          prevIngredients.filter(
-            (prevIngredient) => prevIngredient.id !== ingredientId
-          )
-        );
+        dispatchHttp({ type: "RESPONSE" });
+        dispatch({
+          type: "DELETE",
+          id: ingredientId,
+        });
       })
       .catch((error) => {
-        setError(error.message);
-        setIsLoading(false);
+        dispatchHttp({ type: "ERROR", errorMessage: "Something went wrong" });
       });
   };
 
   const clearError = () => {
-    setError(null);
+    dispatchHttp({ type: "CLEAR" });
   };
 
   return (
     <div className="App">
-      {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
+      {httpState.error && (
+        <ErrorModal onClose={clearError}>{httpState.error}</ErrorModal>
+      )}
       <IngredientForm
         onAddIngredient={addIngredientHandler}
-        loading={isLoading}
+        loading={httpState.loading}
       />
 
       <section>
