@@ -1,44 +1,50 @@
 import { useState, useEffect, useCallback } from "react";
 
-function wait(time) {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(), time);
-  });
-}
+// function wait(time) {
+//   return new Promise((resolve) => {
+//     return setTimeout(() => resolve(), time);
+//   });
+// }
 const useNumberEase = (initialState) => {
   const [state, setState] = useState({
-    counter: initialState,
+    current: initialState,
     target: initialState,
   });
-  const [hasReachedTarget, setHasReachedTarget] = useState(true);
 
-  const moveToNumber = useCallback(async () => {
-    await wait(1000 / 30);
-    if (state.counter < state.target) {
-      setState((prev) => ({ ...prev, counter: prev.counter + 1 }));
+  const [reachedTarget, setHasReachedTarget] = useState(true);
+
+  const moveTowardsNum = useCallback(() => {
+    // await wait(1000 / 30);
+    if (state.current < state.target) {
+      setState((oldState) => ({
+        ...oldState,
+        current: oldState.current + 1,
+      }));
     } else {
-      setState((prev) => ({ ...prev, counter: prev.counter - 1 }));
+      setState((oldState) => ({
+        ...oldState,
+        current: oldState.current - 1,
+      }));
     }
   }, [state]);
 
   useEffect(() => {
-    if (state.counter !== state.target) {
+    if (state.current !== state.target) {
       setHasReachedTarget(false);
-      moveToNumber();
+      moveTowardsNum();
     } else {
       setHasReachedTarget(true);
     }
-  }, [state, moveToNumber]);
+  }, [state, moveTowardsNum]);
 
   const setTarget = (target) => {
-    setState((prev) => ({ ...prev, target: target }));
+    setState({ ...state, target });
   };
-
   return {
-    setTarget,
-    hasReachedTarget,
-    counter: state.counter,
+    counter: state.current,
     target: state.target,
+    hasReachedTarget: reachedTarget,
+    setTarget,
   };
 };
 

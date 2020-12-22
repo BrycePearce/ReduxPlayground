@@ -9,6 +9,7 @@ function wait(delay) {
 }
 
 const useNumberEase = (initialState) => {
+  console.log("wee");
   const [state, setState] = useState({
     value: initialState,
     target: initialState,
