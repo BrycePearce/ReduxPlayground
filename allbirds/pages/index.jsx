@@ -58,32 +58,36 @@ export default function Home() {
         </button>
       </header>
 
-      <main className="flex items-center justify-between mx-8 my-4">
-        <div className="flex flex-col">
-          <div className="space-x-1 text-xs font-medium text-gray-900">
-            <a href="#" className="underline">
-              Home
-            </a>
-            <span>/</span>
+      <main>
+        <div className="flex items-center justify-between mx-8 my-4">
+          <div>
+            <div className="space-x-1 text-xs font-medium text-gray-900">
+              <a href="#" className="underline">
+                Home
+              </a>
+              <span>/</span>
+            </div>
+            <span className="text-lg font-bold text-gray-900">
+              Women's Shoes
+            </span>
           </div>
-          <span className="text-lg font-bold text-gray-900">Women's Shoes</span>
-        </div>
-        <div className="flex">
-          <button className="w-6 h-6">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1}
-                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-              />
-            </svg>
-          </button>
+          <div className="flex">
+            <button className="w-6 h-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1}
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </main>
     </div>
