@@ -15,15 +15,13 @@ const Square = ({ boardPosition, displayValue, updateBoard }) => {
       const isTopRightCorner = boardPosition === 2;
       const isTopLeftCorner = boardPosition === 0;
       if (isTopRightCorner) {
-        console.log("wee");
         classes.push(styles.TopRightCornerBorder);
-        classes.push(styles.TopCornersText);
       } else if (isTopLeftCorner) {
         classes.push(styles.TopLeftCornerBorder);
-        classes.push(styles.TopCornersText);
       } else {
         classes.push(styles.TopRowBorder);
       }
+      classes.push(styles.TopCornersText);
     }
 
     if (isBottomRow) {
@@ -31,13 +29,12 @@ const Square = ({ boardPosition, displayValue, updateBoard }) => {
       const isBottomRightCorner = boardPosition === 8;
       if (isBottomLeftCorner) {
         classes.push(styles.BottomLeftCornerBorder);
-        classes.push(styles.BottomCornersText);
       } else if (isBottomRightCorner) {
         classes.push(styles.BottomRightCornerBorder);
-        classes.push(styles.BottomCornersText);
       } else {
         classes.push(styles.BottomRowBorder);
       }
+      classes.push(styles.BottomCornersText);
     }
 
     if (isLeftInnerBorder) classes.push(styles.LeftInnerBorder);
