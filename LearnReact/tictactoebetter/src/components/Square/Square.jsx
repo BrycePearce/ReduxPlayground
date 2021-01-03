@@ -21,7 +21,7 @@ const Square = ({ boardPosition, displayValue, updateBoard }) => {
       } else {
         classes.push(styles.TopRowBorder);
       }
-      classes.push(styles.TopCornersText);
+      classes.push(styles.TopRowText);
     }
 
     if (isBottomRow) {
@@ -34,7 +34,7 @@ const Square = ({ boardPosition, displayValue, updateBoard }) => {
       } else {
         classes.push(styles.BottomRowBorder);
       }
-      classes.push(styles.BottomCornersText);
+      classes.push(styles.BottomRowText);
     }
 
     if (isLeftInnerBorder) classes.push(styles.LeftInnerBorder);

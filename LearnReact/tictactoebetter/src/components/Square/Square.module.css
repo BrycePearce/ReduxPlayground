@@ -72,14 +72,14 @@
 }
 
 /* Unique Text Gradients */
-.TopCornersText > span {
+.TopRowText > span {
   background: -webkit-linear-gradient(red, gray);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.BottomCornersText > span {
+.BottomRowText > span {
   background: -webkit-linear-gradient(gray, red);
   background-clip: text;
   -webkit-background-clip: text;
