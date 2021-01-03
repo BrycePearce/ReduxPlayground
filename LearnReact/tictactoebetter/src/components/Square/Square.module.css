@@ -1,0 +1,87 @@
+.Square {
+  /* Square */
+  height: 7rem;
+  min-width: 7rem;
+  border: 1px solid white;
+  opacity: 45%;
+  cursor: pointer;
+
+  /* Placement */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Default (inner items) Border */
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  border: double 4px transparent;
+  border-radius: 1rem;
+  background-image: linear-gradient(white, pink);
+}
+
+/* Default (inner) text */
+.Square > span {
+  font-family: sans;
+  font-size: 5rem;
+  font-weight: bolder;
+  background: firebrick;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2px black; /* width and color */
+}
+
+/* Unique Borders */
+
+/* Top */
+.TopLeftCornerBorder {
+  background-image: linear-gradient(white, pink),
+    radial-gradient(circle at bottom right, transparent 10vw, red 2.1vw);
+}
+
+.TopRightCornerBorder {
+  background-image: linear-gradient(white, pink),
+    radial-gradient(circle at bottom left, transparent 10vw, red 2.1vw);
+}
+
+.TopRowBorder {
+  border-top: 3px solid red;
+}
+
+/* Bottom */
+.BottomLeftCornerBorder {
+  background-image: linear-gradient(pink, white),
+    radial-gradient(circle at top right, transparent 10vw, red 2.1vw);
+}
+
+.BottomRightCornerBorder {
+  background-image: linear-gradient(pink, white),
+    radial-gradient(circle at top left, transparent 10vw, red 2.1vw);
+}
+
+.BottomRowBorder {
+  border-bottom: 3px solid red;
+}
+
+.LeftInnerBorder {
+  border-left: 3px solid red;
+}
+
+.RightInnerBorder {
+  border-right: 3px solid red;
+}
+
+/* Unique Text Gradients */
+.TopCornersText > span {
+  background: -webkit-linear-gradient(red, gray);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.BottomCornersText > span {
+  background: -webkit-linear-gradient(gray, red);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
