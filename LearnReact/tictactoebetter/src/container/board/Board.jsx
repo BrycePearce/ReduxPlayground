@@ -6,12 +6,15 @@ import styles from "./Board.module.css";
 const Board = () => {
   const [gameState, setGameState] = useState([]);
   const [playerTurn, setPlayerTurn] = useState("X");
-  const [hasWon, setHasWon] = useState(false);
+  const [outcome, setOutcome] = useState({
+    hasWon: false,
+    hasTied: false,
+  });
 
   // onMount / todo: when user resets board
   useEffect(() => {
     const initializeGame = () => setGameState(new Array(9).fill(""));
-    setHasWon(false);
+    setOutcome({ hasWon: false, hasTied: false });
     initializeGame();
   }, []);
 
@@ -41,30 +44,36 @@ const Board = () => {
       return false;
     };
 
+    const isDraw = () => gameState.every((cell) => cell !== "");
+    console.log(isDraw(), isWinner());
     if (isWinner()) {
-      setHasWon(true);
+      setOutcome((oldState) => ({ ...oldState, hasWon: true }));
+    } else {
+      // update player turn
+      setPlayerTurn((turn) => (turn === "X" ? "O" : "X"));
     }
-  }, [gameState, playerTurn]);
+  }, [gameState]);
 
   const updateBoard = (squareIndex) => {
-    setGameState((prevBoard) => {
-      // handle previously set value, or game is over
-      if (prevBoard[squareIndex] !== "" || hasWon) {
-        return prevBoard;
-      }
-      // otherwise update the board
-      let updatedBoard = [...prevBoard];
-      updatedBoard[squareIndex] = playerTurn;
-      return updatedBoard;
-    });
-
-    // update player turn
-    setPlayerTurn((turn) => (turn === "X" ? "O" : "X"));
+    if (!outcome.hasWon) {
+      setGameState((prevBoard) => {
+        // handle previously set value
+        if (prevBoard[squareIndex] !== "") {
+          return prevBoard;
+        }
+        // otherwise update the board
+        let updatedBoard = [...prevBoard];
+        updatedBoard[squareIndex] = playerTurn;
+        return updatedBoard;
+      });
+    }
   };
 
   const DisplayState = () => {
-    if (hasWon) {
-      return <p>Winner: {playerTurn === "X" ? "O" : "X"}</p>;
+    if (outcome.hasWon) {
+      return <p>Winner: {playerTurn}</p>;
+    } else if (outcome.isDraw) {
+      <p>Draw ¯\_(ツ)_/¯</p>;
     } else {
       return <p>Next: {playerTurn}</p>;
     }
