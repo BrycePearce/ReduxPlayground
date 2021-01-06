@@ -13,10 +13,10 @@ const Board = () => {
   });
 
   const initializeGame = () => {
+    setHistory([]);
+    setOutcome({ hasWon: false, hasTied: false });
     setGameState(new Array(9).fill(""));
     setPlayerTurn("X");
-    setOutcome({ hasWon: false, hasTied: false });
-    setHistory([]);
   };
 
   // board update events/actions
@@ -82,6 +82,7 @@ const Board = () => {
 
   const updateHistory = (index) => {
     setHistory(history.slice(0, index + 1));
+    setOutcome({ hasWon: false, hasTied: false });
   };
 
   const DisplayState = () => {
