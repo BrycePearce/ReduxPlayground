@@ -86,10 +86,11 @@ const Board = () => {
   };
 
   const DisplayState = () => {
+    console.log(outcome);
     if (outcome.hasWon) {
       return <p>Winner: {playerTurn}</p>;
-    } else if (outcome.isDraw) {
-      <p>Draw ¯\_(ツ)_/¯</p>;
+    } else if (outcome.hasTied) {
+      return <p>Draw ¯\_(ツ)_/¯</p>;
     } else {
       return <p>Next: {playerTurn}</p>;
     }
