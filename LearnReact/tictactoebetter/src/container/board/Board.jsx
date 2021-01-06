@@ -1,25 +1,33 @@
 import { useEffect, useState } from "react";
 import Square from "../../components/Square/Square";
-
+import History from "../History";
 import styles from "./Board.module.css";
 
 const Board = () => {
-  const [gameState, setGameState] = useState([]);
+  const [gameState, setGameState] = useState(new Array(9).fill(""));
+  const [history, setHistory] = useState([]);
   const [playerTurn, setPlayerTurn] = useState("X");
   const [outcome, setOutcome] = useState({
     hasWon: false,
     hasTied: false,
   });
 
-  // onMount / todo: when user resets board
-  useEffect(() => {
-    const initializeGame = () => setGameState(new Array(9).fill(""));
+  const initializeGame = () => {
+    setGameState(new Array(9).fill(""));
+    setPlayerTurn("X");
     setOutcome({ hasWon: false, hasTied: false });
-    initializeGame();
-  }, []);
+    setHistory([]);
+  };
 
   // board update events/actions
   useEffect(() => {
+    setHistory((prev) => {
+      return [...prev, gameState];
+    });
+
+    const isGameStart = () => gameState.every((cell) => cell === "");
+    if (isGameStart()) return;
+
     const isWinner = () => {
       const lines = [
         [0, 1, 2],
@@ -45,9 +53,11 @@ const Board = () => {
     };
 
     const isDraw = () => gameState.every((cell) => cell !== "");
-    console.log(isDraw(), isWinner());
+
     if (isWinner()) {
       setOutcome((oldState) => ({ ...oldState, hasWon: true }));
+    } else if (isDraw()) {
+      setOutcome((oldState) => ({ ...oldState, hasTied: true }));
     } else {
       // update player turn
       setPlayerTurn((turn) => (turn === "X" ? "O" : "X"));
@@ -64,9 +74,14 @@ const Board = () => {
         // otherwise update the board
         let updatedBoard = [...prevBoard];
         updatedBoard[squareIndex] = playerTurn;
+
         return updatedBoard;
       });
     }
+  };
+
+  const updateHistory = (index) => {
+    setHistory(history.slice(0, index + 1));
   };
 
   const DisplayState = () => {
@@ -79,21 +94,31 @@ const Board = () => {
     }
   };
 
+  const RenderGameBoard = () => {
+    return gameState.map((cell, position) => (
+      <Square
+        boardPosition={position}
+        displayValue={cell}
+        updateBoard={updateBoard}
+        key={position}
+      />
+    ));
+  };
+
   return (
     <>
       <main className={styles.board}>
-        {gameState.map((cell, position) => (
-          <Square
-            boardPosition={position}
-            displayValue={cell}
-            updateBoard={updateBoard}
-            key={position}
-          />
-        ))}
+        <RenderGameBoard />
       </main>
       <div>
         <DisplayState />
       </div>
+      <History
+        history={history}
+        setGameState={setGameState}
+        updateHistory={updateHistory}
+      />
+      <button onClick={() => initializeGame()}>Restart</button>
     </>
   );
 };

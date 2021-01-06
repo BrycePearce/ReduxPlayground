@@ -4,6 +4,7 @@ import styles from "./Square.module.css";
 const Square = ({ boardPosition, displayValue, updateBoard }) => {
   // halfway hardcoded because I am lazy, but not that lazy. To not be lazy I would pass board and determine positions, and dynamically set the hardcoded values you see below
   const isTopRow = [0, 1, 2].includes(boardPosition);
+  const isMiddleRow = [3, 4, 5].includes(boardPosition);
   const isBottomRow = [6, 7, 8].includes(boardPosition);
   const isLeftInnerBorder = [3].includes(boardPosition);
   const isRightInnerBorder = [5].includes(boardPosition);
@@ -33,8 +34,13 @@ const Square = ({ boardPosition, displayValue, updateBoard }) => {
         classes.push(styles.BottomRightCornerBorder);
       } else {
         classes.push(styles.BottomRowBorder);
+        classes.push(styles.BottomRowInnerSquare);
       }
       classes.push(styles.BottomRowText);
+    }
+
+    if (isMiddleRow) {
+      classes.push(styles.MiddleRowInnerSquare);
     }
 
     if (isLeftInnerBorder) classes.push(styles.LeftInnerBorder);

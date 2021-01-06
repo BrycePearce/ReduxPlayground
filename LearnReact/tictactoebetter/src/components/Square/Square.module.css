@@ -59,6 +59,14 @@
     radial-gradient(circle at top left, transparent 10vw, red 2.1vw);
 }
 
+.BottomRowInnerSquare {
+  background-image: linear-gradient(pink, white);
+}
+
+.MiddleRowInnerSquare {
+  background-image: linear-gradient(#ffb6c1, #ffb6c1);
+}
+
 .BottomRowBorder {
   border-bottom: 3px solid red;
 }
