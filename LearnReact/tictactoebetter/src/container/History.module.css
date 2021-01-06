@@ -6,5 +6,4 @@
 ul {
   display: flex;
   flex-direction: column;
-  height: 12rem;
 }

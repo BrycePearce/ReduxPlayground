@@ -86,7 +86,6 @@ const Board = () => {
   };
 
   const DisplayState = () => {
-    console.log(outcome);
     if (outcome.hasWon) {
       return <p>Winner: {playerTurn}</p>;
     } else if (outcome.hasTied) {
@@ -115,12 +114,16 @@ const Board = () => {
       <div>
         <DisplayState />
       </div>
-      <History
-        history={history}
-        setGameState={setGameState}
-        updateHistory={updateHistory}
-      />
-      <button onClick={() => initializeGame()}>Restart</button>
+      <div className={styles.modifications}>
+        <History
+          history={history}
+          setGameState={setGameState}
+          updateHistory={updateHistory}
+        />
+        <button className={styles.restart} onClick={() => initializeGame()}>
+          Restart
+        </button>
+      </div>
     </>
   );
 };

@@ -3,3 +3,11 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
 }
+
+.modifications {
+  min-height: 11rem;
+}
+
+.restart {
+  width: 100%;
+}
