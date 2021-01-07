@@ -81,8 +81,10 @@ const Board = () => {
   };
 
   const updateHistory = (index) => {
-    setHistory(history.slice(0, index + 1));
+    const newHistory = history.slice(0, index + 1);
+    setHistory(newHistory);
     setOutcome({ hasWon: false, hasTied: false });
+    setPlayerTurn(newHistory.length % 2 === 0 ? "O" : "X");
   };
 
   const DisplayState = () => {
