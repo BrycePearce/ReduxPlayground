@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Square.module.css";
 
-const Square = ({ boardPosition, displayValue, updateBoard }) => {
+const Square = ({ boardPosition, displayValue, updateBoard, isCellActive }) => {
   // halfway hardcoded because I am lazy, but not that lazy. To not be lazy I would pass board and determine positions, and dynamically set the hardcoded values you see below
   const isTopRow = [0, 1, 2].includes(boardPosition);
   const isMiddleRow = [3, 4, 5].includes(boardPosition);
@@ -45,6 +45,10 @@ const Square = ({ boardPosition, displayValue, updateBoard }) => {
 
     if (isLeftInnerBorder) classes.push(styles.LeftInnerBorder);
     if (isRightInnerBorder) classes.push(styles.RightInnerBorder);
+
+    if (isCellActive) {
+      classes.push(styles.SquareHoverOverride);
+    }
 
     return classes.join(" ");
   };

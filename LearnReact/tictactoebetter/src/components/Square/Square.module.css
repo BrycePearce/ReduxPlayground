@@ -19,6 +19,15 @@
   background-image: linear-gradient(white, pink);
 }
 
+.Square:hover {
+  opacity: 60%;
+}
+
+.SquareHoverOverride {
+  pointer-events: none;
+  cursor: pointer;
+}
+
 /* Default (inner) text */
 .Square > span {
   font-family: sans;

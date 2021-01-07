@@ -96,11 +96,13 @@ const Board = () => {
   };
 
   const RenderGameBoard = () => {
+    const isGameOver = outcome.hasTied || outcome.hasWon;
     return gameState.map((cell, position) => (
       <Square
         boardPosition={position}
         displayValue={cell}
         updateBoard={updateBoard}
+        isCellActive={gameState[position] !== "" || isGameOver}
         key={position}
       />
     ));
@@ -120,7 +122,11 @@ const Board = () => {
           setGameState={setGameState}
           updateHistory={updateHistory}
         />
-        <button className={styles.restart} onClick={() => initializeGame()}>
+        <button
+          className={styles.restart}
+          onClick={() => initializeGame()}
+          disabled={history.length === 1}
+        >
           Restart
         </button>
       </div>
