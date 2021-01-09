@@ -5,13 +5,14 @@ function createMarkup(text) {
   return { __html: text };
 }
 
-const Editable = ({ value, onSubmit, useInput, useTextarea }) => {
+const Editable = ({ value, onSubmit, useInput, useTextarea, autoSize }) => {
   const [isEditable, setIsEditable] = useState(false);
   const [input, setInput] = useState(value);
 
   const wrapperRef = useRef(null);
 
-  useOutsideEvent(wrapperRef, () => {
+  useOutsideEvent(wrapperRef, isEditable, () => {
+    setIsEditable(false);
     onSubmit(input);
   });
 
@@ -27,7 +28,7 @@ const Editable = ({ value, onSubmit, useInput, useTextarea }) => {
   const defaultText = (
     <div
       onClick={() => setIsEditable(true)}
-      dangerouslySetInnerHTML={createMarkup(value)}
+      dangerouslySetInnerHTML={createMarkup(input)}
     ></div>
   );
 

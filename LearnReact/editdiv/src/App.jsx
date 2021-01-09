@@ -26,7 +26,7 @@ function App() {
   };
 
   const handleTextUpdate = (updatedText) => {
-    console.log(updatedText);
+    // console.log(updatedText);
   };
 
   const DisplayText = () => {
