@@ -34,7 +34,12 @@ function App() {
       <>
         {textList.map((text, index) => {
           return (
-            <Editable value={text} onSubmit={handleTextUpdate} key={index} />
+            <Editable
+              value={text}
+              onSubmit={handleTextUpdate}
+              size={8}
+              key={index}
+            />
           );
         })}
       </>
