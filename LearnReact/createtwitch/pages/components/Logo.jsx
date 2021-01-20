@@ -9,7 +9,7 @@ const Logo = ({ width = 40, height = 40 }) => {
       x="0px"
       y="0px"
       className="ScSvg-cdc1ai-0 hrdQOA"
-      style={{ fill: "rgb(169, 112, 255)" }}
+      style={{ fill: "#9147ff" }}
     >
       <g>
         <polygon
