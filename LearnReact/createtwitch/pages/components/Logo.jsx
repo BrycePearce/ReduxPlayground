@@ -8,14 +8,10 @@ const Logo = ({ width = 40, height = 40 }) => {
       viewBox="0 0 40 40"
       x="0px"
       y="0px"
-      className="ScSvg-cdc1ai-0 hrdQOA"
       style={{ fill: "#9147ff" }}
     >
       <g>
-        <polygon
-          points="13 8 8 13 8 31 14 31 14 36 19 31 23 31 32 22 32 8"
-          className="ScBody-cdc1ai-1 efRGdn"
-        >
+        <polygon points="13 8 8 13 8 31 14 31 14 36 19 31 23 31 32 22 32 8">
           <animate
             dur="150ms"
             begin="indefinite"
@@ -63,7 +59,6 @@ const Logo = ({ width = 40, height = 40 }) => {
         </polygon>
         <polygon
           points="26 25 30 21 30 10 14 10 14 25 18 25 18 29 22 25"
-          className="ScFace-cdc1ai-2 jvqeMd"
           style={{ fill: "white" }}
         >
           <animateTransform
@@ -115,11 +110,8 @@ const Logo = ({ width = 40, height = 40 }) => {
             to="3 -3"
           ></animateTransform>
         </polygon>
-        <g className="ScEyes-cdc1ai-3 jbPqGp">
-          <path
-            d="M20,14 L22,14 L22,20 L20,20 L20,14 Z M27,14 L27,20 L25,20 L25,14 L27,14 Z"
-            className="ScBody-cdc1ai-1 efRGdn"
-          >
+        <g>
+          <path d="M20,14 L22,14 L22,20 L20,20 L20,14 Z M27,14 L27,20 L25,20 L25,14 L27,14 Z">
             <animateTransform
               dur="150ms"
               begin="indefinite"
