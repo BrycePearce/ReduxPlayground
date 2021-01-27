@@ -1,0 +1,14 @@
+.access-wrapper {
+  display: flex;
+  text-align: center;
+  /* align-items: center; */
+  background-color: hsl(217, 28%, 15%);
+  transform: translate(0, 50%);
+  border-radius: 0.5rem;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.get-access {
+  padding: 3rem;
+}

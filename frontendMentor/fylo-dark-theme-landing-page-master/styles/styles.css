@@ -3,6 +3,9 @@
 @import "header.css";
 @import "intro.css";
 @import "productive.css";
+@import "testimonials.css";
+@import "footer.css";
+@import "getAccess.css";
 
 body {
   font-family: "Raleway", sans-serif;
