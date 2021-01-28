@@ -1,14 +1,14 @@
 .section-testimonials {
-  margin: 0 8rem;
+  margin: auto 8rem;
   margin-bottom: 7rem;
 }
 
 .testimonials-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   grid-column-gap: 4rem;
   grid-row-gap: 2rem;
-  z-index: 1;
+  justify-items: center;
 }
 
 .testimonials-wrapper figure {

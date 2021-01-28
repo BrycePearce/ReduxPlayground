@@ -3,7 +3,6 @@
   grid-template-columns: 1fr;
   justify-items: center;
   margin-bottom: 7rem;
-  background-color: hsl(218, 28%, 13%);
 }
 
 .intro {
@@ -12,6 +11,11 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 7rem;
+  background-color: hsl(217, 28%, 15%);
+  background-image: url("/images/bg-curvy-desktop.svg");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% 34%;
 }
 
 .intro-img-wrap {
@@ -29,7 +33,7 @@
 
 .intro-text {
   text-align: center;
-  width: 50%;
+  width: 100%;
 }
 
 .features {
@@ -45,10 +49,16 @@
   text-align: center;
 }
 
-.feature p {
-  width: 50%;
-}
-
 .feature img {
   height: 6rem;
+}
+
+.feature p {
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .intro-text {
+    width: 50%;
+  }
 }
