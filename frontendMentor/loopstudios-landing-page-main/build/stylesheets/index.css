@@ -1,0 +1,86 @@
+@font-face {
+  font-family: "Alata";
+  src: url("../fonts/Alata-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Josefine Sans";
+  src: url("../fonts/JosefinSans-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+body {
+  font-size: 15px;
+}
+
+h1,
+h2,
+span {
+  font-family: "Josefine Sans", sans-serif;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+
+p,
+a,
+button {
+  font-family: "Alata", sans-serif;
+}
+
+header {
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/images/mobile/image-hero.jpg");
+  background-size: cover;
+  background-position: center top;
+}
+@media (min-width: 1200px) {
+  header {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/images/desktop/image-hero.jpg");
+    background-size: cover;
+    background-position: center top;
+  }
+}
+
+.header__wrapper {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+@media (min-width: 1200px) {
+  .header__wrapper {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+.header__wrapper ul {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+}
+.header__wrapper ul li:not(:first-of-type) {
+  margin-left: 2rem;
+}
+.header__wrapper ul li a {
+  color: white;
+  text-decoration: none;
+  opacity: 0.9;
+}
+.header__wrapper .immersive-experiences {
+  margin: 16rem 0 0 8rem;
+  border: 2px solid white;
+  min-width: min-content;
+  max-width: 49rem;
+  font-size: 2.5rem;
+  padding: 2rem 0 2rem 2rem;
+  color: white;
+}
+.header__wrapper .immersive-experiences h1 {
+  margin: 0;
+}
+
+.navbar__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 8rem;
+}
+
+/*# sourceMappingURL=index.css.map */
