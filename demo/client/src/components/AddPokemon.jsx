@@ -14,7 +14,7 @@ const AddPokemon = () => {
 
   return (
     <Container maxW="container.md">
-      <InputGroup size="md">
+      <InputGroup>
         <Input
           pr="4.5rem"
           type="text"
@@ -26,7 +26,11 @@ const AddPokemon = () => {
             size="sm"
             backgroundColor="teal.500"
             onClick={() =>
-              addPokemon.mutateAsync({ name: pokemonName, id: Math.random() })
+              addPokemon.mutateAsync({
+                name: pokemonName,
+                avatar: "http://placekitten.com/48/48",
+                id: Math.random(),
+              })
             }
           >
             Add

@@ -2,6 +2,7 @@
     {
         "id": "001",
         "name": "Bulbasaur",
+        "avatar": "https://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png",
         "classification": "Seed Pokémon",
         "types": [
             "Grass",
@@ -80,6 +81,7 @@
     {
         "id": "002",
         "name": "Ivysaur",
+        "avatar": "https://cdn.bulbagarden.net/upload/thumb/7/73/002Ivysaur.png/250px-002Ivysaur.png",
         "classification": "Seed Pokémon",
         "types": [
             "Grass",
@@ -160,6 +162,7 @@
     {
         "id": "003",
         "name": "Venusaur",
+        "avatar": "https://cdn.bulbagarden.net/upload/thumb/a/ae/003Venusaur.png/250px-003Venusaur.png",
         "classification": "Seed Pokémon",
         "types": [
             "Grass",
@@ -234,6 +237,7 @@
     {
         "id": "004",
         "name": "Charmander",
+        "avatar": "https://cdn.bulbagarden.net/upload/7/73/004Charmander.png",
         "classification": "Lizard Pokémon",
         "types": [
             "Fire"
@@ -311,6 +315,7 @@
     {
         "id": "005",
         "name": "Charmeleon",
+        "avatar": "http://static.pokemonpets.com/images/monsters-images-800-800/5-Charmeleon.png",
         "classification": "Flame Pokémon",
         "types": [
             "Fire"
@@ -390,6 +395,7 @@
     {
         "id": "006",
         "name": "Charizard",
+        "avatar": "https://images.gameinfo.io/pokemon/256/006-00.png",
         "classification": "Flame Pokémon",
         "types": [
             "Fire",
@@ -464,6 +470,7 @@
     {
         "id": "007",
         "name": "Squirtle",
+        "avatar": "http://static.pokemonpets.com/images/monsters-images-800-800/7-Squirtle.png",
         "classification": "Tiny Turtle Pokémon",
         "types": [
             "Water"
@@ -538,6 +545,7 @@
     {
         "id": "008",
         "name": "Wartortle",
+        "avatar": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/008.png",
         "classification": "Turtle Pokémon",
         "types": [
             "Water"
@@ -619,6 +627,7 @@
     {
         "id": "009",
         "name": "Blastoise",
+        "avatar": "https://images.gameinfo.io/pokemon/256/009-00.png",
         "classification": "Shellfish Pokémon",
         "types": [
             "Water"
